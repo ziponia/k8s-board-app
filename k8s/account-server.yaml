@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+
+# ReplicaSet + Pod 가 합쳐진 게 Deployment??
+kind: Deployment
+metadata:
+  name: server
+  labels:
+    app.kubernetes.io/name: account-server
+    app.kubernetes.io/component: backend
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: account-server
+      app.kubernetes.io/component: backend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: account-server
+        app.kubernetes.io/component: backend
+    spec:
+      containers:
+        - name: account-server
+          image: node:12 # image
+      # private registry
+      imagePullSecrets:
+        - name: regcred
